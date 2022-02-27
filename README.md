@@ -1,3 +1,5 @@
 ### Transform .txt file to MD and HTML
 
-#### Initaly made for generating simple docs from Team sync notes
+#### Initally made for generating simple docs from Team sync notes
+
+![image](https://user-images.githubusercontent.com/32032778/155892201-6a589bf5-09c8-4603-902c-f435106ae65d.png)
