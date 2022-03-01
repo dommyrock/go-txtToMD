@@ -46,14 +46,14 @@ func main() {
 	}
 
 	writerChannel := make(chan string)
-	areFilesCreated := make(chan bool)
+	filesCreated := make(chan bool)
 
-	//Read file and and write to (MD,html)files in separate goroutines
+	//Read file and and write to (MD,html)
 	go files.ProcessFile(fileData, writerChannel, dict)
-	go files.WriteToFiles(writerChannel, areFilesCreated)
+	go files.WriteToFiles(writerChannel, filesCreated)
 
-	// Writing/Reading to channels is blocking (await channel to be closed, then unblock)
-	<-areFilesCreated
+	//Await channel to be closed, then unblock (Writing/Reading to channels is blocking)
+	<-filesCreated
 
 	//Print output file location
 	pth, err := filepath.Abs(fileData.FilePath)
@@ -66,10 +66,3 @@ func main() {
 	//Open output html file
 	browser.OpenFile(`D:\Downloads\output.html`)
 }
-
-//TODO: make tests for this
-//TEST :Tables work when we pas them all at once (not line by line)
-// testTable := `| 2stCol | 2ndCol | 3rdCol |
-// 					| ------ | ------ | ------ |
-// 					| val1 | val2 | val3 |
-// 					| val4 | val5 | val6 |`

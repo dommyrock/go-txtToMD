@@ -16,6 +16,13 @@ type testData struct {
 	html []byte
 }
 
+//TODO: make tests for generating HTML from markdown formated Table string
+//TEST :Tables work when we pas them all at once (not line by line)
+// testTable := `| 2stCol | 2ndCol | 3rdCol |
+// 					| ------ | ------ | ------ |
+// 					| val1 | val2 | val3 |
+// 					| val4 | val5 | val6 |`
+
 func testDataToStrArray(tests []*testData) []string {
 	res := []string{}
 	for _, td := range tests {
