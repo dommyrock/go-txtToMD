@@ -39,6 +39,8 @@ func HandlePrefix(prefix string, txt string) string {
 		}
 	case "-":
 		return "- " + txt
+	case "#img":
+		return "![image](" + txt + ")"
 	case "link", "links":
 		title, link, description := SplitLink(txt, ",")
 		return "[" + title + "]" + "(" + link + ")" + " -" + description

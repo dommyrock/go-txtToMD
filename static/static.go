@@ -1,5 +1,62 @@
 package static
 
+var Root_defaultTheme = `:root {
+		padding-left: 17rem;
+		padding-right: 17rem;
+		padding-top: 0.5rem;
+		height: 100vh;
+		background: #f1f1f1;
+	}`
+var Root_darkTheme = `:root {
+		padding-left: 17rem;
+		padding-right: 17rem;
+		padding-top: 0.5rem;
+		height: 100vh;
+		background: #1b1b1c;
+		color: #fff;
+	}
+	
+	table tr:nth-child(even) {
+		background-color: #5d5a5a !important;
+	}
+
+	table tr:hover {
+		background-color: #5d5a5a !important;
+	}
+	
+	blockquote {
+		background-color: rgb(108 106 106 / 77%) !important;
+	}
+
+	ul li {
+		display: inline-block !important;
+		background-color: rgb(120 120 131 / 63%) !important;
+		border: solid 4px #5a8d6e !important;
+		border-radius: 3px !important;
+		padding: 0.2rem !important;
+	}
+	`
+var Root_midTheme = `:root {
+		padding-left: 17rem;
+		padding-right: 17rem;
+		padding-top: 0.5rem;
+		height: 100vh;
+		background: #343232;
+		color: #fff;
+	}
+	table tr:nth-child(even) {
+		background-color: #5d5a5a !important;
+	}
+
+	table tr:hover {
+		background-color: #5d5a5a !important;
+	}
+	
+	blockquote {
+		background-color: rgb(108 106 106 / 77%) !important;
+	}
+	`
+
 var HtmlOpen = `<!doctype html>
 <html>
 
@@ -8,13 +65,8 @@ var HtmlOpen = `<!doctype html>
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>HTML document</title>
    <style>
-      :root {
-         padding-left: 17rem;
-         padding-right: 17rem;
-         padding-top: 0.5rem;
-         height: 100vh;
-			background: #f1f1f1;
-      }
+	`
+var HtmlMid = `
 		
 		body {
 			background: rgb(198 198 198 / 17%);
@@ -25,6 +77,9 @@ var HtmlOpen = `<!doctype html>
 			font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
 		}
 
+		img {
+			width: 100%;
+		}
 
       blockquote {
          font-style: italic;
@@ -78,12 +133,13 @@ var HtmlOpen = `<!doctype html>
          padding: 0.1rem;
       }
 
-      ul li {
-         /* remove bulet icon */
-         display: inline-block;
-         background-color: rgb(204, 222, 240);
-         border: solid 4px #ccc;
-      }
+		ul li {
+			display: inline-block;
+			background-color: rgb(111 195 214 / 14%);
+			border: solid 4px rgb(123 228 163 / 50%);
+			border-radius: 3px !important;
+			padding: 0.2rem;
+		}
       li{
          transition: transform .3s ease-out;
       }

@@ -57,6 +57,10 @@ func ProcessFile(fileData InputFile, writerChannel chan<- string, dict map[strin
 		if found {
 			mode = val.Mode
 			currentPrefix = val.Value
+			//edge case
+			if currentPrefix == "---" {
+				writerChannel <- currentPrefix
+			}
 			continue
 		}
 
@@ -150,7 +154,8 @@ func WriteToFiles(writerChannel <-chan string, done chan<- bool) {
 			writeToMD(text, false)
 
 			if beginningOfFile {
-				writeToHTML(static.HtmlOpen, false)
+				//construct html template/styles
+				writeToHTML(htmlStleBuilder(), false)
 				beginningOfFile = false
 			}
 			if text == "```\n" && builder.Len() == 0 {
@@ -212,4 +217,18 @@ func mdToHTML(md goldmark.Markdown, text string, buf bytes.Buffer, writeToHTML f
 		log.Fatalf("error converting txt to")
 	}
 	writeToHTML(buf.String(), false)
+}
+
+//Builds <style> based on theme arg
+func htmlStleBuilder() string {
+	args := os.Args
+	switch len(args) {
+	case 3:
+		if args[2] == "mid" {
+			return static.HtmlOpen + static.Root_midTheme + static.HtmlMid
+		}
+		return static.HtmlOpen + static.Root_darkTheme + static.HtmlMid
+	default:
+		return static.HtmlOpen + static.Root_defaultTheme + static.HtmlMid
+	}
 }

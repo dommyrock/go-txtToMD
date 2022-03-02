@@ -20,17 +20,17 @@ type Prefix = types.Prefix
 
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
-	println(color.InCyan("Passed arguments:"))
-	fmt.Printf("1- %v\n2- %v\n", os.Args[0], os.Args[1])
+
 	dict := map[string]Prefix{
 		"#h1":    {Value: "#", Mode: "once"},
 		"#h2":    {Value: "##", Mode: "once"},
 		"#h3":    {Value: "###", Mode: "once"},
 		"#h4":    {Value: "####", Mode: "once"},
 		"#h5":    {Value: "#####", Mode: "once"},
+		"-":      {Value: "---", Mode: "once"}, //line break
 		"#code":  {Value: "```", Mode: "repeat"},
 		"#b":     {Value: "**", Mode: "once"}, //bold
-		"#img":   {Value: "![", Mode: "once"},
+		"#img":   {Value: "#img", Mode: "once"},
 		"#p":     {Value: ">", Mode: "multy"}, //paragraph
 		"#link":  {Value: "link", Mode: "once"},
 		"#bp":    {Value: "-", Mode: "multy"},     //bullet
@@ -39,6 +39,9 @@ func main() {
 	}
 	println(color.InCyan("Availiable mappings:"))
 	fmt.Print(textUtil.MapKeys(dict))
+	//TODO:
+	//1 Only print above options if user entered options -h,
+	//3 bugfix Md file extra ```` after code
 
 	fileData, err := files.GetFileData()
 	_, fileError := files.CheckIfFileIsValid(fileData.FilePath)

@@ -12,6 +12,8 @@ code bellow
 #b
 this is bold text
 
+-
+
 #code
 const element=document.GetElementByID('ananas')
 const el2 = document.GetElementById('potato')
@@ -60,3 +62,6 @@ Breakpoint 1
 Breakpoint 2
 Breakpoint 3
 Breakpoint 4
+
+#img
+https://user-images.githubusercontent.com/32032778/155892201-6a589bf5-09c8-4603-902c-f435106ae65d.png
