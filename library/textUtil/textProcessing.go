@@ -1,6 +1,13 @@
 package textUtil
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+
+	types "github.com/dommyrock/txtToMD/types"
+)
+
+type MapKeys map[string]types.Prefix
 
 func InsertHeaderLine(text string) string {
 	pipeRepeated := strings.Count(text, "|")
@@ -59,4 +66,21 @@ func TrimCodeStart(text string) string {
 		return TrimCodeStart(strings.TrimPrefix(text, "`"))
 	}
 	return text
+}
+
+//Prints all available txt file mappings
+func (s MapKeys) String() string {
+	keys := make([]string, 0, len(s))
+	for k := range s {
+		keys = append(keys, k)
+	}
+	var str string
+	for _, i := range keys {
+		str += fmt.Sprintf("%v\n", i)
+	}
+	return str
+	//Print values
+	// for _, i := range s {
+	// 	str += fmt.Sprintf("%v\n", i)
+	// }
 }

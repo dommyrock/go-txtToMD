@@ -7,3 +7,4 @@ type Prefix struct {
 type InputFile struct {
 	FilePath string
 }
+type MapKeys map[string]Prefix

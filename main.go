@@ -7,8 +7,10 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/TwiN/go-color"
 	"github.com/dommyrock/txtToMD/library/errorHandling"
 	"github.com/dommyrock/txtToMD/library/files"
+	"github.com/dommyrock/txtToMD/library/textUtil"
 	"github.com/pkg/browser"
 
 	types "github.com/dommyrock/txtToMD/types"
@@ -18,7 +20,8 @@ type Prefix = types.Prefix
 
 func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
-
+	println(color.InCyan("Passed arguments:"))
+	fmt.Printf("1- %v\n2- %v\n", os.Args[0], os.Args[1])
 	dict := map[string]Prefix{
 		"#h1":    {Value: "#", Mode: "once"},
 		"#h2":    {Value: "##", Mode: "once"},
@@ -34,6 +37,8 @@ func main() {
 		"#links": {Value: "links", Mode: "multy"}, //multiple links in a row
 		"#table": {Value: "table", Mode: "multy"},
 	}
+	println(color.InCyan("Availiable mappings:"))
+	fmt.Print(textUtil.MapKeys(dict))
 
 	fileData, err := files.GetFileData()
 	_, fileError := files.CheckIfFileIsValid(fileData.FilePath)
