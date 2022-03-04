@@ -10,7 +10,7 @@
          "request": "launch",
          "mode": "auto",
          "program": "${fileDirname}",
-         "args": ["./testData/test.txt"]
+         "args": ["./testData/test2.txt", "dark"]
       }
    ]
 }

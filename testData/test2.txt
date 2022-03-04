@@ -1,0 +1,34 @@
+#h1
+TODO: Add chroma syntax highlight for code 
+
+#b
+line break bellow
+
+-
+
+#code
+const element=document.GetElementByID('ananas')
+const el2 = document.GetElementById('potato')
+
+#code
+func mdToHTML(md goldmark.Markdown, text string, buf bytes.Buffer, writeToHTML func(string, bool)) {
+	if errr := md.Convert([]byte(text), &buf); errr != nil {
+		log.Fatalf("error converting txt to")
+	}
+	writeToHTML(buf.String(), false)
+}
+go run .
+
+#h4
+heheeh interupted 
+#h3 interupted 2x
+
+#code
+[OperationContract]
+InfoDataResponse InfoData(InfoDataRequest request);
+
+#code
+[OperationContract]
+GeneralDataResponse GeneralData(GeneralDataRequest request);
+
+

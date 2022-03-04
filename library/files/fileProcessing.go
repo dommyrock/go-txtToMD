@@ -82,13 +82,19 @@ func ProcessFile(fileData InputFile, writerChannel chan<- string, dict map[strin
 			} else {
 				writerChannel <- line
 			}
-		} else { // newline
+		} else { // newline, empty line
 			if mode == "repeat" {
 				writerChannel <- line + currentPrefix + "\n"
 			} else {
 				writerChannel <- line
 			}
-			blockStarted = false //reset block
+			//RESET after writing to channel
+			if !found {
+				mode = ""
+				currentPrefix = ""
+				blockStarted = false
+
+			}
 		}
 	}
 	close(writerChannel)
