@@ -30,20 +30,34 @@ https://user-images.githubusercontent.com/32032778/156761329-e724cc70-f7e5-4c0b-
 
 
 ![image](https://user-images.githubusercontent.com/32032778/155892201-6a589bf5-09c8-4603-902c-f435106ae65d.png)
+
 ---
+
 ### Currently available  mappings
-Availiable mappings:
-#h4
-#code
-#b
-#p
-#h3
-#bp
-#links
-#h5
-#h2
-#link
-#h1
-#img
-#table
--
+> #h4
+
+> #code
+>
+> #b
+
+> #p
+
+> #h3
+
+> #bp
+
+> #links
+
+> #h5
+
+> #h2
+
+> #link
+
+> #h1
+
+> #img
+
+> #table
+
+> -
