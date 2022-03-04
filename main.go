@@ -19,8 +19,6 @@ import (
 type Prefix = types.Prefix
 
 func main() {
-	log.SetFlags(log.LstdFlags | log.Lshortfile)
-
 	dict := map[string]Prefix{
 		"#h1":    {Value: "#", Mode: "once"},
 		"#h2":    {Value: "##", Mode: "once"},
@@ -37,16 +35,16 @@ func main() {
 		"#links": {Value: "links", Mode: "multy"}, //multiple links in a row
 		"#table": {Value: "table", Mode: "multy"},
 	}
-	println(color.InCyan("Availiable mappings:"))
-	fmt.Print(textUtil.MapKeys(dict))
-	//TODO:
-	//1 Only print above options if user entered options -h,
-	//3 bugfix Md file extra ```` after code
+
+	if shouldExit(dict) {
+		return
+	}
+	//line number config
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	fileData, err := files.GetFileData()
 	_, fileError := files.CheckIfFileIsValid(fileData.FilePath)
 
-	//Validate inputs
 	if err != nil {
 		errorHandling.ExitGracefully(err)
 	} else if fileError != nil {
@@ -56,7 +54,7 @@ func main() {
 	writerChannel := make(chan string)
 	filesCreated := make(chan bool)
 
-	//Read file and and write to (MD,html)
+	//Read /Write to [MD,html]
 	go files.ProcessFile(fileData, writerChannel, dict)
 	go files.WriteToFiles(writerChannel, filesCreated)
 
@@ -71,6 +69,18 @@ func main() {
 	index := strings.LastIndex(pth, string(os.PathSeparator))
 	fmt.Printf("Outputed markdown to dir: %s", pth[:index])
 
-	//Open output html file
+	//Open created HTML
 	browser.OpenFile(`D:\Downloads\output.html`)
+}
+
+func shouldExit(dict map[string]types.Prefix) bool {
+	if len(os.Args) < 2 {
+		log.Fatal("No file specified")
+		return true
+	} else if len(os.Args) == 2 && (os.Args[1] == "-options" || os.Args[1] == "-o") {
+		println(color.InCyan("Availiable mappings:"))
+		fmt.Print(textUtil.MapKeys(dict))
+		return true
+	}
+	return false
 }
