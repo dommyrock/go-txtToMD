@@ -37,7 +37,7 @@ https://user-images.githubusercontent.com/32032778/156761329-e724cc70-f7e5-4c0b-
 > #h4
 
 > #code
->
+
 > #b
 
 > #p
@@ -60,4 +60,4 @@ https://user-images.githubusercontent.com/32032778/156761329-e724cc70-f7e5-4c0b-
 
 > #table
 
-> -
+> '-' (dash, for solid line break)
