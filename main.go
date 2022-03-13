@@ -11,6 +11,7 @@ import (
 	"github.com/dommyrock/txtToMD/library/errorHandling"
 	"github.com/dommyrock/txtToMD/library/files"
 	"github.com/dommyrock/txtToMD/library/textUtil"
+	"github.com/mitchellh/go-homedir"
 	"github.com/pkg/browser"
 
 	types "github.com/dommyrock/txtToMD/types"
@@ -67,10 +68,12 @@ func main() {
 		fmt.Printf("error: %v\n", err)
 	}
 	index := strings.LastIndex(pth, string(os.PathSeparator))
-	fmt.Printf("Outputed markdown to dir: %s", pth[:index])
-
-	//Open created HTML
-	browser.OpenFile(`D:\Downloads\output.html`)
+	fmt.Printf("Outputed HTML,MD files to : %s", pth[:index])
+	homeDir, err := homedir.Dir()
+	if err != nil {
+		log.Fatalf("Error opening generated file in Browser: %s", err)
+	}
+	browser.OpenFile(homeDir + "\\Downloads\\generated.html")
 }
 
 func shouldExit(dict map[string]types.Prefix) bool {

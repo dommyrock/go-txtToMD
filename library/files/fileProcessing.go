@@ -16,12 +16,12 @@ import (
 	"github.com/dommyrock/txtToMD/library/textUtil"
 	"github.com/dommyrock/txtToMD/static"
 	types "github.com/dommyrock/txtToMD/types"
+	"github.com/mitchellh/go-homedir"
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/renderer/html"
 )
 
-// type Prefix = types.Prefix
 type InputFile = types.InputFile
 
 func GetFileData() (InputFile, error) {
@@ -134,10 +134,18 @@ func CreateFileWriter(path string) func(string, bool) {
 //Awaits writes from writerchennel writes to file, than signals done <-
 func WriteToFiles(writerChannel <-chan string, done chan<- bool) {
 	fmt.Printf("Reading from writerChannel and writing to files...\n")
-	htmlLocation := fmt.Sprintf("%s/%s", "D:/Downloads", "output.html")
+
+	//Get user home dir regardless of the OS
+	homeDir, err := homedir.Dir()
+	if err != nil {
+		errorHandling.ExitGracefully(err)
+	}
+	htmlLocation := fmt.Sprintf("%s/%s", homeDir+"\\Downloads", "generated.html")
 	writeToHTML := CreateFileWriter(htmlLocation)
-	mdLocation := fmt.Sprintf("%s/%s", "D:/Downloads", "output.md")
+	mdLocation := fmt.Sprintf("%s/%s", homeDir+"\\Downloads", "generated.md")
 	writeToMD := CreateFileWriter(mdLocation)
+
+	//Tables & code blocks need to be converted from MD to html all at once
 	builder := strings.Builder{}
 
 	//HTML Writer
@@ -146,11 +154,8 @@ func WriteToFiles(writerChannel <-chan string, done chan<- bool) {
 		goldmark.WithRendererOptions(
 			html.WithHardWraps(),
 		),
-		//there is table cellallign method prop which can be set
-		//see https://github.com/yuin/goldmark/blob/master/extension/table_test.go
 	)
 
-	//Tables need to be converted from MD to html all at once
 	beginningOfFile, wroteEnd, detectedTable, detectedCode := true, false, false, false
 	for {
 		text, more := <-writerChannel

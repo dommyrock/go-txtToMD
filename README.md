@@ -1,9 +1,11 @@
-### Transform .txt file to MD and HTML
+### Generate HTML and MD files from .txt file
 
 #### Initally made for generating simple docs from Team sync notes
 
-
 #### Runing on Test data (test.txt file)
+
+#### Note: Don't forget to separate different mapings by empty line/new line break 
+> (see /testData .txt files for example)
 
 ```
 go run . .\testData\test.txt

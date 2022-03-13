@@ -20,8 +20,10 @@ func mdToHTML(md goldmark.Markdown, text string, buf bytes.Buffer, writeToHTML f
 go run .
 
 #h4
-heheeh interupted 
-#h3 interupted 2x
+ interupted 1x
+
+#h3
+interupted 2x
 
 #code
 [OperationContract]

@@ -12,5 +12,6 @@ require (
 	github.com/TwiN/go-color v1.1.0 // indirect
 	github.com/alecthomas/chroma v0.10.0 // indirect
 	github.com/dlclark/regexp2 v1.4.0 // indirect
+	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	golang.org/x/sys v0.0.0-20210616045830-e2b7044e8c71 // indirect
 )
