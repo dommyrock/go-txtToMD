@@ -1,14 +1,33 @@
 ### Generate HTML and MD files from .txt file
+[Blog post](https://dev.to/dompolzer/generating-hmtl-and-md-files-from-txt-in-go-59lh)
 
-#### Initally made for generating simple docs from Team sync notes
-
-#### Runing on Test data (test.txt file)
-
-#### Note: Don't forget to separate different mapings by empty line/new line break 
-> (see /testData .txt files for example)
-
+#### Running code locally: (with test files form ./testData directory)
+> Generate Html/md files to %HOMEDIR%/Downloads directory:
 ```
-go run . .\testData\test.txt
+go run . ./testData/test.txt
+```
+> selecting custom theme:
+```
+go run . ./testData/test.txt mid
+```
+> Getting all currently available mappings:
+```
+go run . -options (or -o)
+```
+
+> Note: Currently line break/newline is expected between each mapping element to be parsed into MD/HTML correctly!
+
+---
+#### Running CLI command globally:
+If you want to run this tool globally you can place txtToMD.exe file to 'Path' in windows environment variables.
+that way you can use it from anywhere in your system
+> txtToMD {txt File Path} [options: light(default),dark,mid]
+```
+txtToMD D:\Desktop\test.txt dark
+```
+> Getting all currently available mappings:
+```
+txtToMD -options
 ```
 
 #### Passing custom theme params
@@ -18,13 +37,6 @@ go run . .\testData\test.txt
 
 > dark
 
-```
-go run . .\testData\test.txt dark
-```
-#### Get all available mappings (-o or -options)
-```
-go run . -options
-```
 ---
 ## Demo
 
@@ -34,6 +46,9 @@ https://user-images.githubusercontent.com/32032778/156761329-e724cc70-f7e5-4c0b-
 ![image](https://user-images.githubusercontent.com/32032778/155892201-6a589bf5-09c8-4603-902c-f435106ae65d.png)
 
 ---
+
+![Available mappings](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/noukkyfp0nsq5axm710x.png) 
+
 
 ### Currently available  mappings
 > #h4

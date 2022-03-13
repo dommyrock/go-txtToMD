@@ -69,6 +69,7 @@ func main() {
 	}
 	index := strings.LastIndex(pth, string(os.PathSeparator))
 	fmt.Printf("Outputed HTML,MD files to : %s", pth[:index])
+
 	homeDir, err := homedir.Dir()
 	if err != nil {
 		log.Fatalf("Error opening generated file in Browser: %s", err)
@@ -81,7 +82,7 @@ func shouldExit(dict map[string]types.Prefix) bool {
 		log.Fatal("No file specified")
 		return true
 	} else if len(os.Args) == 2 && (os.Args[1] == "-options" || os.Args[1] == "-o") {
-		println(color.InCyan("Availiable mappings:"))
+		println(color.InCyan("Available mappings:"))
 		fmt.Print(textUtil.MapKeys(dict))
 		return true
 	}

@@ -31,7 +31,8 @@ go run .
 #code
 [OperationContract]
         InfoDataResponse InfoData(InfoDataRequest request);
-
+		  
+#code
         [OperationContract]
         GeneralDataResponse GeneralData(GeneralDataRequest request);
 		  

@@ -33,6 +33,7 @@ func GetFileData() (InputFile, error) {
 	return InputFile{flag.Arg(0)}, nil
 }
 
+//Reads from input File and writes parsed lines to writerChannel
 func ProcessFile(fileData InputFile, writerChannel chan<- string, dict map[string]types.Prefix) {
 	file, err := os.Open(fileData.FilePath)
 
@@ -131,7 +132,9 @@ func CreateFileWriter(path string) func(string, bool) {
 	}
 }
 
-//Awaits writes from writerchennel writes to file, than signals done <-
+//1. Awaits writes from writerChannel
+//2.Writes to file
+//3.Signals done <-
 func WriteToFiles(writerChannel <-chan string, done chan<- bool) {
 	fmt.Printf("Reading from writerChannel and writing to files...\n")
 
@@ -173,8 +176,8 @@ func WriteToFiles(writerChannel <-chan string, done chan<- bool) {
 				continue
 			}
 
-			if strings.HasPrefix(text, "|") || detectedTable {
-				if text == "" {
+			if strings.HasPrefix(text, "|") || detectedTable { //table
+				if text == "" { //end of table
 					mdToHTML(md, builder.String(), buf, writeToHTML)
 					detectedTable = false
 					builder.Reset()
@@ -187,7 +190,7 @@ func WriteToFiles(writerChannel <-chan string, done chan<- bool) {
 				if text == "```\n" && builder.Len() > 0 {
 					err := quick.Highlight(&builder, builder.String(), "go", "html", "dracula") //options: monokai,dracula,rainbow_dash
 					if err != nil {
-						log.Fatal("error highlighting")
+						log.Fatalf("error highlighting code bock. %s", err)
 					}
 
 					innerBody := strings.Split(strings.Split(builder.String(), `<body class="bg">`)[1], `</body>`)[0]
@@ -205,7 +208,7 @@ func WriteToFiles(writerChannel <-chan string, done chan<- bool) {
 				mdToHTML(md, text, buf, writeToHTML)
 			}
 
-		} else { //Writter channel is closed
+		} else { //Writer channel is closed
 			//Write remaining text from StringBuiilder to file
 			if builder.Len() > 0 && detectedTable {
 				mdToHTML(md, builder.String(), buf, writeToHTML)
