@@ -9,6 +9,51 @@ import (
 
 type MapKeys map[string]types.Prefix
 
+//Prints all available txt file mappings
+func (s MapKeys) String() string {
+	var str string
+	for k := range s {
+		str += fmt.Sprintf("%v >> %v\n", k, decodePrefix(k))
+	}
+	return str
+}
+
+//Translates prefix to description
+func decodePrefix(r string) string {
+	switch r {
+	case "#h1":
+		return "Heading 1"
+	case "#h2":
+		return "Heading 2"
+	case "#h3":
+		return "Heading 3"
+	case "#h4":
+		return "Heading 4"
+	case "#h5":
+		return "Heading 5"
+	case "-":
+		return "Line break"
+	case "#code":
+		return "Code block"
+	case "#b":
+		return "Bold"
+	case "#bp":
+		return "Bullet point"
+	case "#p":
+		return "Paragraph"
+	case "#link":
+		return "Single link"
+	case "#links":
+		return "Multiple links"
+	case "#table":
+		return "Table"
+	case "#img":
+		return "Image"
+	default:
+		return r
+	}
+}
+
 func InsertHeaderLine(text string) string {
 	pipeRepeated := strings.Count(text, "|")
 	result := ""
@@ -68,21 +113,4 @@ func TrimCodeStart(text string) string {
 		return TrimCodeStart(strings.TrimPrefix(text, "`"))
 	}
 	return text
-}
-
-//Prints all available txt file mappings
-func (s MapKeys) String() string {
-	keys := make([]string, 0, len(s))
-	for k := range s {
-		keys = append(keys, k)
-	}
-	var str string
-	for _, i := range keys {
-		str += fmt.Sprintf("%v\n", i)
-	}
-	return str
-	//Print values
-	// for _, i := range s {
-	// 	str += fmt.Sprintf("%v\n", i)
-	// }
 }

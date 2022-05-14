@@ -20,7 +20,7 @@ import (
 type Prefix = types.Prefix
 
 func main() {
-	dict := map[string]Prefix{
+	mappings := map[string]Prefix{
 		"#h1":    {Value: "#", Mode: "once"},
 		"#h2":    {Value: "##", Mode: "once"},
 		"#h3":    {Value: "###", Mode: "once"},
@@ -37,7 +37,7 @@ func main() {
 		"#table": {Value: "table", Mode: "multy"},
 	}
 
-	if shouldExit(dict) {
+	if shouldExit(mappings) {
 		return
 	}
 	//line number config
@@ -56,7 +56,7 @@ func main() {
 	filesCreated := make(chan bool)
 
 	//Read /Write to [MD,html]
-	go files.ProcessFile(fileData, writerChannel, dict)
+	go files.ProcessFile(fileData, writerChannel, mappings)
 	go files.WriteToFiles(writerChannel, filesCreated)
 
 	//Await channel to be closed, then unblock (Writing/Reading to channels is blocking)
@@ -78,10 +78,11 @@ func main() {
 }
 
 func shouldExit(dict map[string]types.Prefix) bool {
-	if len(os.Args) < 2 {
+	args := len(os.Args)
+	if args < 2 {
 		log.Fatal("No file specified")
 		return true
-	} else if len(os.Args) == 2 && (os.Args[1] == "-options" || os.Args[1] == "-o") {
+	} else if args == 2 && (os.Args[1] == "-options" || os.Args[1] == "-o") {
 		println(color.InCyan("Available mappings:"))
 		fmt.Print(textUtil.MapKeys(dict))
 		return true
