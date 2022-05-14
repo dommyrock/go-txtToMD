@@ -47,7 +47,8 @@ https://user-images.githubusercontent.com/32032778/156761329-e724cc70-f7e5-4c0b-
 
 ---
 
-![Available mappings](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/noukkyfp0nsq5axm710x.png) 
+![Available mappings](https://user-images.githubusercontent.com/32032778/168449622-ee2f7869-cf1b-4351-a40a-4874f0638adf.png)
+
 
 
 ### Currently available  mappings
