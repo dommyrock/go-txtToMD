@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"path/filepath"
-	"strings"
 
 	"github.com/TwiN/go-color"
 	"github.com/dommyrock/txtToMD/library/errorHandling"
@@ -59,21 +57,16 @@ func main() {
 	go files.ProcessFile(fileData, writerChannel, mappings)
 	go files.WriteToFiles(writerChannel, filesCreated)
 
-	//Await channel to be closed, then unblock (Writing/Reading to channels is blocking)
+	//Await channel to be closed, then unblock
 	<-filesCreated
-
-	//Print output file location
-	pth, err := filepath.Abs(fileData.FilePath)
-	if err != nil {
-		fmt.Printf("error: %v\n", err)
-	}
-	index := strings.LastIndex(pth, string(os.PathSeparator))
-	fmt.Printf("Outputed HTML,MD files to : %s", pth[:index])
 
 	homeDir, err := homedir.Dir()
 	if err != nil {
 		log.Fatalf("Error opening generated file in Browser: %s", err)
 	}
+	//Print output file location
+	fmt.Printf("Outputed HTML,MD files to : %s\\Downloads", homeDir)
+	//Open in browser
 	browser.OpenFile(homeDir + "\\Downloads\\generated.html")
 }
 
