@@ -1,14 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"log"
-	"os"
 
-	"github.com/TwiN/go-color"
 	"github.com/dommyrock/txtToMD/library/errorHandling"
 	"github.com/dommyrock/txtToMD/library/files"
-	"github.com/dommyrock/txtToMD/library/textUtil"
+	"github.com/dommyrock/txtToMD/static"
 	"github.com/mitchellh/go-homedir"
 	"github.com/pkg/browser"
 
@@ -35,10 +32,10 @@ func main() {
 		"#table": {Value: "table", Mode: "multy"},
 	}
 
-	if shouldExit(mappings) {
+	if errorHandling.ShouldExit(mappings) {
 		return
 	}
-	//line number config
+	//Log config
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	fileData, err := files.GetFileData()
@@ -61,24 +58,10 @@ func main() {
 	<-filesCreated
 
 	homeDir, err := homedir.Dir()
-	if err != nil {
-		log.Fatalf("Error opening generated file in Browser: %s", err)
-	}
-	//Print output file location
-	fmt.Printf("Outputed HTML,MD files to : %s\\Downloads", homeDir)
-	//Open in browser
+	static.PrintOutputDirLocation(homeDir, err)
+	//Open browser
 	browser.OpenFile(homeDir + "\\Downloads\\generated.html")
-}
 
-func shouldExit(dict map[string]types.Prefix) bool {
-	args := len(os.Args)
-	if args < 2 {
-		log.Fatal("No file specified")
-		return true
-	} else if args == 2 && (os.Args[1] == "-options" || os.Args[1] == "-o") {
-		println(color.InCyan("Available mappings:"))
-		fmt.Print(textUtil.MapKeys(dict))
-		return true
-	}
-	return false
+	//Hosting static file in cloud
+	static.StaticFileHostingNote()
 }

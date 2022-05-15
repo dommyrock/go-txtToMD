@@ -1,5 +1,12 @@
 package static
 
+import (
+	"fmt"
+	"log"
+
+	"github.com/TwiN/go-color"
+)
+
 var Root_defaultTheme = `:root {
 		padding-left: 17rem;
 		padding-right: 17rem;
@@ -227,3 +234,15 @@ var HtmlMid = `
 <body>
 <div id="content">`
 var HtmlEnd = "</div>\n</body>\n</html>"
+
+func StaticFileHostingNote() {
+	fmt.Println("For hosting this static file in cloud check out:")
+	fmt.Println(color.InCyan("https://codelabs.developers.google.com/codelabs/cloud-webapp-hosting-gcs\nor\nhttps://www.netlify.com/blog/2016/10/27/a-step-by-step-guide-deploying-a-static-site-or-single-page-app"))
+}
+
+func PrintOutputDirLocation(homeDir string, err error) {
+	if err != nil {
+		log.Fatalf("Error opening generated file in Browser: %s", err)
+	}
+	fmt.Printf(color.InYellow("Outputed HTML,MD files to : %s\\Downloads\n\n"), homeDir)
+}

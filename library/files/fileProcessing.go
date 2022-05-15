@@ -218,8 +218,6 @@ func WriteToFiles(writerChannel <-chan string, done chan<- bool) {
 				writeToHTML(static.HtmlEnd, false)
 				wroteEnd = true
 			}
-
-			fmt.Println("Done writing to files, closing channel now")
 			done <- true
 		}
 	}
