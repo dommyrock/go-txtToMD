@@ -1,5 +1,5 @@
 #h1
-TODO: Add chroma syntax highlight for code 
+Hey Go Hack
 
 #h2
 this is description
